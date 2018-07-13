@@ -755,6 +755,7 @@ function processParagraph(index, element, inSrc, imageCounter, listCounters, ima
   // Handle Table elements. Pretty simple-minded now, but works for simple tables.
   // Note that Markdown does not process within block-level HTML, so it probably 
   // doesn't make sense to add markup within tables.
+  Logger.log('Type:', element.getType())
   if (element.getType() === DocumentApp.ElementType.TABLE) {
     textElements.push("<table>\n");
     var nCols = element.getChild(0).getNumCells();
@@ -828,6 +829,7 @@ function processParagraph(index, element, inSrc, imageCounter, listCounters, ima
     return result;
   }
   
+  Logger.log(element)
   var ind_f = element.getIndentFirstLine();
   var ind_s = element.getIndentStart();
   var ind_e = element.getIndentEnd();
@@ -876,7 +878,7 @@ function processParagraph(index, element, inSrc, imageCounter, listCounters, ima
   }
   
   var indent_prefix = '> ';
-# var indent_alt_prefix = '> <sub>';
+  var indent_alt_prefix = '> <sub>';
   if (inIndent && !inSrc) {
     if (/^#*\s/.test(result.text)) { // don't subscript-prefix header prefix
       result.text = indent_alt_prefix + result.text;
